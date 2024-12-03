@@ -26,6 +26,7 @@ public class Player extends Entity{
         this.KeyH = KeyH;
         
         setDefaultValues();
+        System.out.println(System.getProperty("user.dir"));
         getPlayerImage();
     }
     
@@ -39,14 +40,19 @@ public class Player extends Entity{
     
     public void getPlayerImage(){
         try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("res/player/tile3.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("res/player/tile4.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("res/player/tile3.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("res/player/tile4.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("res/player/file0.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("res/player/tile1.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("res/player/tile0.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("res/player/tile1.png"));
+            //System.out.println("Image loading started");
+            // load sprite images....
+            up1 = ImageIO.read(getClass().getResource("./res/player/idle_R0.png"));
+            up2 = ImageIO.read(getClass().getResource("./res/player/idle_R1.png"));
+            right1 = ImageIO.read(getClass().getResource("./res/player/idle_R0.png"));
+            right2 = ImageIO.read(getClass().getResource("./res/player/idle_R1.png"));
+            down1 = ImageIO.read(getClass().getResource("./res/player/idle_L0.png"));
+            down2 = ImageIO.read(getClass().getResource("./res/player/idle_L1.png"));
+            left1 = ImageIO.read(getClass().getResource("./res/player/idle_L0.png"));
+            left2 = ImageIO.read(getClass().getResource("./res/player/idle_L1.png"));
+            // load sprite images....
+            //System.out.println("Image loading ended");
+
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -67,6 +73,15 @@ public class Player extends Entity{
             X += Speed;
         }
         
+        spriteCounter++;
+        if (spriteCounter > 10) {
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            }else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
     
     public void draw(Graphics g2){
@@ -77,16 +92,36 @@ public class Player extends Entity{
         
         switch(direction){
             case "up":
-                image = up1;
+                if (spriteNum == 1) {
+                    image = up1;    
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
                 break;
             case "down":
-                image = down1;
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
                 break;
             case "right":
-                image = right1;
+                if (spriteNum == 1) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
                 break;
             case "left":
-                image = left1;
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
                 break;
         }
         g2.drawImage(image, X, Y, gp.tileSize, gp.tileSize, null);

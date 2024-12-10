@@ -21,14 +21,16 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler KeyH;
     
-    public final int screenX, screenY;
+    //public final int screenX, screenY; //openworld-like setting
 
     public Player(GamePanel gp, KeyHandler KeyH) {
         this.gp = gp;
         this.KeyH = KeyH;
         
-        screenX = gp.ScreenWidth/2 - (gp.tileSize/2);
+        {/*
+        screenX = gp.ScreenWidth/2 - (gp.tileSize/2); //if using moving camera
         screenY = gp.ScreenHeight/2 - (gp.tileSize/2);
+        */} //openworld-like settings
         
         setDefaultValues();
         System.out.println(System.getProperty("user.dir"));
@@ -36,13 +38,16 @@ public class Player extends Entity{
     }
     
     public void setDefaultValues(){
-        
-        //X = 100;
-        //Y = 100;
-        worldX = gp.tileSize * 8;
+        {/*
+        worldX = gp.tileSize * 8; //if using moving camera
         worldY = gp.tileSize * 8;
         Speed = 4; 
-        direction = "right";
+        direction = "down";
+        */} //openworld-like settings
+        X = gp.tileSize * 8;
+        Y = gp.tileSize * 6;
+        Speed = 4; 
+        direction = "down";
     }
     
     public void getPlayerImage(){
@@ -66,18 +71,34 @@ public class Player extends Entity{
     }
     
     public void update(){
+        {/*
         if (KeyH.upPressed) {
             direction = "up";
-            worldY -= Speed;
+            worldY -= Speed; //if using moving camera, change to worldY
         }else if (KeyH.downPressed) {
             direction = "down";
-            worldY += Speed;
+            worldY += Speed; //if using moving camera, change to worldX, and so on...
         }else if (KeyH.leftPressed) {
             direction = "left";
             worldX -= Speed;
         }else if (KeyH.rightPressed) {
             direction = "right";
             worldX += Speed;
+        }
+        */} //openworld-like settings
+        
+        if (KeyH.upPressed) {
+            direction = "up";
+            Y -= Speed; //if using moving camera, change to worldY
+        }else if (KeyH.downPressed) {
+            direction = "down";
+            Y += Speed; //if using moving camera, change to worldX, and so on...
+        }else if (KeyH.leftPressed) {
+            direction = "left";
+            X -= Speed;
+        }else if (KeyH.rightPressed) {
+            direction = "right";
+            X += Speed;
         }
         
         spriteCounter++;
@@ -131,6 +152,7 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        //g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null); //openworld-like setting
+        g2.drawImage(image, X, Y, gp.tileSize, gp.tileSize, null);
     }
 }

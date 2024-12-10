@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
  * @author Wallyson M Lima
  */
 public class Entity {
-    public int X, Y;
+    public int X, Y, worldX, worldY;
     public int Speed;
     
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;

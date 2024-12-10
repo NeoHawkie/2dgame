@@ -20,10 +20,15 @@ import main.KeyHandler;
 public class Player extends Entity{
     GamePanel gp;
     KeyHandler KeyH;
+    
+    public final int screenX, screenY;
 
     public Player(GamePanel gp, KeyHandler KeyH) {
         this.gp = gp;
         this.KeyH = KeyH;
+        
+        screenX = gp.ScreenWidth/2 - (gp.tileSize/2);
+        screenY = gp.ScreenHeight/2 - (gp.tileSize/2);
         
         setDefaultValues();
         System.out.println(System.getProperty("user.dir"));
@@ -32,8 +37,10 @@ public class Player extends Entity{
     
     public void setDefaultValues(){
         
-        X = 100;
-        Y = 100;
+        //X = 100;
+        //Y = 100;
+        worldX = gp.tileSize * 8;
+        worldY = gp.tileSize * 8;
         Speed = 4; 
         direction = "right";
     }
@@ -61,16 +68,16 @@ public class Player extends Entity{
     public void update(){
         if (KeyH.upPressed) {
             direction = "up";
-            Y -= Speed;
+            worldY -= Speed;
         }else if (KeyH.downPressed) {
             direction = "down";
-            Y += Speed;
+            worldY += Speed;
         }else if (KeyH.leftPressed) {
             direction = "left";
-            X -= Speed;
+            worldX -= Speed;
         }else if (KeyH.rightPressed) {
             direction = "right";
-            X += Speed;
+            worldX += Speed;
         }
         
         spriteCounter++;
@@ -124,6 +131,6 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image, X, Y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }

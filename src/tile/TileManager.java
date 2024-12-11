@@ -18,8 +18,8 @@ import main.GamePanel;
  */
 public class TileManager {
     GamePanel gp;
-    Tile[] tile;
-    int mapTileNum[][];
+    public Tile[] tile;
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -36,6 +36,7 @@ public class TileManager {
         try {
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("./res/tiles/blueBrick.png"));
+            tile[0].collision = true;
             
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("./res/tiles/lines.png"));
@@ -45,6 +46,8 @@ public class TileManager {
             
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("./res/tiles/XBlock.png"));
+            tile[3].collision = true;
+            
         }catch(IOException error){
             error.printStackTrace();
         }

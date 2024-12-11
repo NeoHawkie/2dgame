@@ -7,6 +7,7 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -32,8 +33,10 @@ public class Player extends Entity{
         screenY = gp.ScreenHeight/2 - (gp.tileSize/2);
         */} //openworld-like settings
         
+        solidArea = new Rectangle(8, 16, 32, 32);
+        
         setDefaultValues();
-        System.out.println(System.getProperty("user.dir"));
+        //System.out.println(System.getProperty("user.dir"));
         getPlayerImage();
     }
     
@@ -47,7 +50,7 @@ public class Player extends Entity{
         X = gp.tileSize * 8;
         Y = gp.tileSize * 6;
         Speed = 4; 
-        direction = "down";
+        direction = "up";
     }
     
     public void getPlayerImage(){
@@ -89,16 +92,26 @@ public class Player extends Entity{
         
         if (KeyH.upPressed) {
             direction = "up";
-            Y -= Speed; //if using moving camera, change to worldY
         }else if (KeyH.downPressed) {
             direction = "down";
-            Y += Speed; //if using moving camera, change to worldX, and so on...
         }else if (KeyH.leftPressed) {
             direction = "left";
-            X -= Speed;
         }else if (KeyH.rightPressed) {
             direction = "right";
-            X += Speed;
+        }
+        
+        //check tile collision
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+        
+        //if collision is false, player can move
+        if (!collisionOn) {
+            switch(direction){
+                case "up" -> Y -= Speed; //if using moving camera, change to worldY
+                case "down" -> Y += Speed; //if using moving camera, change to worldX, and so on...
+                case "left" -> X -= Speed;
+                case "right" -> X += Speed;
+            }
         }
         
         spriteCounter++;

@@ -33,8 +33,11 @@ public class Player extends Entity{
         screenY = gp.ScreenHeight/2 - (gp.tileSize/2);
         */} //openworld-like settings
         
-        solidArea = new Rectangle(8, 16, 32, 32);
-        
+        solidArea = new Rectangle(/*8, 16, 32, 32*/);
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
         setDefaultValues();
         //System.out.println(System.getProperty("user.dir"));
         getPlayerImage();
@@ -90,27 +93,29 @@ public class Player extends Entity{
         }
         */} //openworld-like settings
         
-        if (KeyH.upPressed) {
-            direction = "up";
-        }else if (KeyH.downPressed) {
-            direction = "down";
-        }else if (KeyH.leftPressed) {
-            direction = "left";
-        }else if (KeyH.rightPressed) {
-            direction = "right";
-        }
-        
-        //check tile collision
-        collisionOn = false;
-        gp.cChecker.checkTile(this);
-        
-        //if collision is false, player can move
-        if (!collisionOn) {
-            switch(direction){
-                case "up" -> Y -= Speed; //if using moving camera, change to worldY
-                case "down" -> Y += Speed; //if using moving camera, change to worldX, and so on...
-                case "left" -> X -= Speed;
-                case "right" -> X += Speed;
+        if (KeyH.downPressed || KeyH.leftPressed
+            || KeyH.rightPressed || KeyH.upPressed) {
+            if (KeyH.upPressed) {
+                direction = "up";
+            }else if (KeyH.downPressed) {
+                direction = "down";
+            }else if (KeyH.leftPressed) {
+                direction = "left";
+            }else if (KeyH.rightPressed) {
+                direction = "right";
+            }
+            
+            //check tile collision
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+            
+            if (!collisionOn) {
+                switch(direction){
+                    case "up" -> Y -= Speed; //if using moving camera, change to worldY
+                    case "down" -> Y += Speed; //if using moving camera, change to worldX, and so on...
+                    case "left" -> X -= Speed;
+                    case "right" -> X += Speed;
+                }
             }
         }
         

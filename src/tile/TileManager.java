@@ -156,8 +156,8 @@ public class TileManager {
         while(Col < gp.maxScreenCol && Row < gp.maxScreenRow){
             
             int tileNum = mapTileNum[Col][Row];
-            
             g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
+            
             Col++;
             x += gp.tileSize;
             

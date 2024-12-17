@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import object.SuperObject;
 import tile.TileManager;
 
 /**
@@ -43,8 +44,10 @@ public class GamePanel extends JPanel implements Runnable{
     TileManager tileM = new TileManager(this);
     KeyHandler KeyH = new KeyHandler();
     Thread gameThread;
-    public Player player = new Player(this, KeyH);
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter= new AssetSetter(this);
+    public Player player = new Player(this, KeyH);
+    public SuperObject obj[] = new SuperObject[10];
     
     //sets player's default position and move speed
 //    int playerX = 100;
@@ -57,6 +60,10 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(KeyH);
         this.setFocusable(true);
+    }
+    
+    public void setupGame(){
+        aSetter.setObject();
     }
     
     public void startGameThread(){
@@ -137,8 +144,19 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         
+        //draws tiles
         tileM.draw(g2);
+        
+        //draw objects
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
+        
+        //draw player
         player.draw(g2);
+        
         g2.dispose();
     }
 }

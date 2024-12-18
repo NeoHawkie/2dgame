@@ -21,6 +21,7 @@ import main.KeyHandler;
 public class Player extends Entity{
     GamePanel gp;
     KeyHandler KeyH;
+    int hasMeat = 0;
     
     //public final int screenX, screenY; //openworld-like setting
 
@@ -36,6 +37,8 @@ public class Player extends Entity{
         solidArea = new Rectangle(/*8, 16, 32, 32*/);
         solidArea.x = 8;
         solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
         setDefaultValues();
@@ -109,6 +112,10 @@ public class Player extends Entity{
             collisionOn = false;
             gp.cChecker.checkTile(this);
             
+            //check object collision
+            int objIndex = gp.cChecker.checkObject(this, true);
+            objInteraction(objIndex);
+            
             if (!collisionOn) {
                 switch(direction){
                     case "up" -> Y -= Speed; //if using moving camera, change to worldY
@@ -127,6 +134,20 @@ public class Player extends Entity{
                 spriteNum = 1;
             }
             spriteCounter = 0;
+        }
+    }
+    
+    public void objInteraction(int i){
+        if (i != 999) {
+            String objectName = gp.obj[i].name;
+            
+            switch(objectName){
+                case "Meat":
+                    hasMeat++;
+                    gp.obj[i] = null;
+                    System.out.println("Meat count: "+hasMeat);
+                    break;
+            }
         }
     }
     

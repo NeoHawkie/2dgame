@@ -19,7 +19,7 @@ public class AssetSetter {
     
     public void setObject(){
         gp.obj[0] = new OBJ_Meat();
-        gp.obj[0].X = 8 * gp.tileSize;
+        gp.obj[0].X = 10 * gp.tileSize;
         gp.obj[0].Y = 6 * gp.tileSize;
     }
 }

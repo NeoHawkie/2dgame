@@ -19,5 +19,10 @@ public class OBJ_Meat extends SuperObject{
         }catch(IOException error){
             error.printStackTrace();
         }
+//        solidArea.x = 8;
+//        solidArea.y = 16;
+//        solidArea.height = 32;
+//        solidArea.width = 32;
+        collision = true;
     }
 }

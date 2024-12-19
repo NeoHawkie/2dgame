@@ -4,12 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/main/AssetSetter.java</file>
-            <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/main/Main.java</file>
             <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/main/CollisionChecker.java</file>
+            <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/main/Main.java</file>
             <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/object/SuperObject.java</file>
             <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/main/GamePanel.java</file>
-            <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/tile/TileManager.java</file>
+            <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/object/OBJ_Poop.java</file>
             <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/entity/Player.java</file>
+            <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/sound/Sound.java</file>
             <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/object/OBJ_Meat.java</file>
             <file>file:/E:/Users/Wallyson/Documents/NetBeansProjects/2dgame/src/entity/Entity.java</file>
         </group>

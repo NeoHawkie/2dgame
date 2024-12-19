@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import object.SuperObject;
+import sound.Sound;
 import tile.TileManager;
 
 /**
@@ -42,12 +43,15 @@ public class GamePanel extends JPanel implements Runnable{
     
     public long gameTimer = 0;
     
-    //instances:
+    //system instances:
     TileManager tileM = new TileManager(this);
     KeyHandler KeyH = new KeyHandler();
-    Thread gameThread;
+    Sound sound = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter= new AssetSetter(this);
+    Thread gameThread;
+    
+    //ENTITY AND OBJECT
     public Player player = new Player(this, KeyH);
     public SuperObject obj[] = new SuperObject[10];
     
@@ -66,6 +70,8 @@ public class GamePanel extends JPanel implements Runnable{
     
     public void setupGame(){
         aSetter.setObject();
+        
+        playMusic(0);
     }
     
     public void startGameThread(){
@@ -133,7 +139,7 @@ public class GamePanel extends JPanel implements Runnable{
             if (timer >= 1000000000) {
                 gameTimer++;
                 System.out.println("FPS: "+drawCount
-                        + "    Timer: "+gameTimer
+                        //+ "    Timer: "+gameTimer
                 );
                 drawCount = 0;
                 timer = 0;
@@ -163,5 +169,20 @@ public class GamePanel extends JPanel implements Runnable{
         player.draw(g2);
         
         g2.dispose();
+    }
+    
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    
+    public void stopMusic(){
+        sound.stop();
+    }
+    
+    public void playSE(int i){
+        sound.setFile(i);
+        sound.play();
     }
 }

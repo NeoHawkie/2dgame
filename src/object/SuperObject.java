@@ -22,6 +22,9 @@ public class SuperObject {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
     
+    public int spriteCounter = 0;
+    public int spriteNum = 1;
+    
     public void draw(Graphics2D g2, GamePanel gp){
             g2.drawImage(image, X, Y, gp.tileSize, gp.tileSize, null);
     }

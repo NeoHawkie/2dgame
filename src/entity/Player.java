@@ -21,7 +21,7 @@ import main.KeyHandler;
 public class Player extends Entity{
     GamePanel gp;
     KeyHandler KeyH;
-    int hasMeat = 0;
+    public int hasMeat = 0;
     
     //public final int screenX, screenY; //openworld-like setting
 
@@ -144,6 +144,7 @@ public class Player extends Entity{
             switch(objectName){
                 case "Meat":
                     hasMeat++;
+                    gp.playSE(0);
                     gp.obj[i] = null;
                     System.out.println("Meat count: "+hasMeat);
                     break;

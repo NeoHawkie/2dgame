@@ -5,13 +5,14 @@
 package main;
 
 import object.OBJ_Meat;
-
+import java.util.Random;
 /**
  *
  * @author Wallyson M. Lima
  */
 public class AssetSetter {
     GamePanel gp;
+    Random rng = new Random();
     
     public AssetSetter(GamePanel gp){
         this.gp = gp;
@@ -19,7 +20,7 @@ public class AssetSetter {
     
     public void setObject(){
         gp.obj[0] = new OBJ_Meat();
-        gp.obj[0].X = 10 * gp.tileSize;
-        gp.obj[0].Y = 6 * gp.tileSize;
+        gp.obj[0].X = (4 + rng.nextInt(7)) * gp.tileSize;
+        gp.obj[0].Y = 2 * gp.tileSize;
     }
 }

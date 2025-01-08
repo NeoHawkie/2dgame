@@ -55,7 +55,7 @@ public class Player extends Entity{
         */} //openworld-like settings
         X = gp.tileSize * 8;
         Y = gp.tileSize * 6;
-        Speed = 4; 
+        Speed = 3; 
         direction = "up";
     }
     

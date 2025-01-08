@@ -18,6 +18,7 @@ public class UI {
     GamePanel gp;
     Font arial_30;
     BufferedImage meatImage;
+    double playTime = 0;
     
     public UI(GamePanel gp){
         this.gp = gp;
@@ -29,7 +30,11 @@ public class UI {
     public void draw(Graphics2D g2){
         g2.setFont(arial_30);
         g2.setColor(Color.white);
-        g2.drawImage(meatImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2.drawString("x " + gp.player.hasMeat, 74, 50);
+        g2.drawImage(meatImage, gp.tileSize/3, gp.tileSize/3, gp.tileSize*1, gp.tileSize*1, null);
+        g2.drawString("  x " + gp.player.hasMeat, gp.tileSize*1, gp.tileSize*1);
+        
+        //TIME
+        playTime += (double)1/60;
+        g2.drawString(String.format("Time: %.3f", playTime), gp.tileSize*12, gp.tileSize*1);
     }
 }

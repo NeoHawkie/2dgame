@@ -56,6 +56,8 @@ public class GamePanel extends JPanel implements Runnable{
     //ENTITY AND OBJECT
     public Player player = new Player(this, KeyH);
     public SuperObject obj[] = new SuperObject[10];
+    //meat auto-drop:
+    public static int dropInterval = 60; //meat drops every 60 frames
     
     //sets player's default position and move speed
 //    int playerX = 100;
@@ -150,6 +152,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){
         player.update();
     }
+    
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);

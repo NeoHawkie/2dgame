@@ -7,6 +7,7 @@ package main;
 import java.util.HashSet;
 import object.OBJ_Meat;
 import java.util.Random;
+import java.util.Set;
 import object.OBJ_Poop;
 /**
  *
@@ -21,17 +22,36 @@ public class AssetSetter {
     }
     
     public void setObject(){
-        HashSet randomX = new HashSet();
-        HashSet randomY = new HashSet();
-        do{
-            randomX.add(4 + rng.nextInt(7));
-        }while (randomX.size() != 10);
-        do{
-            randomY.add(2 + rng.nextInt(7));
-        }while (randomY.size() != 10);
+        
+//        Set<String> tileOBJ = new HashSet<>();
+//        
+//        while(tileOBJ.size() < 10){
+//            int x = rng.nextInt(7);
+//            int y = rng.nextInt(7) + 2;
+//            String selectedTile = x +","+ y;
+//            
+//            tileOBJ.add(selectedTile);
+//        }
+//        
+//        int i=0;
+//        for (String tile : tileOBJ) {
+//            int x = Integer.parseInt(tile);
+//            int y = tile.charAt(2);
+//            System.out.println(x+","+y+"  i:"+i);
+//            System.out.println("num:"+tile);
+//            System.out.println("");
+//            
+//            gp.obj[i] = new OBJ_Meat();
+//            gp.obj[i].X = x * gp.tileSize;
+//            gp.obj[i].Y = y * gp.tileSize;
+//            i++;
+//            System.out.println(tile);
+//            
+//        }
+//        System.out.println();
         
         gp.obj[0] = new OBJ_Meat();
-        gp.obj[0].X =  randomX.* gp.tileSize;
+        gp.obj[0].X = (4 + rng.nextInt(7)) * gp.tileSize;
         gp.obj[0].Y = (2 + rng.nextInt(7)) * gp.tileSize;
         gp.obj[1] = new OBJ_Meat();
         gp.obj[1].X = (4 + rng.nextInt(7)) * gp.tileSize;

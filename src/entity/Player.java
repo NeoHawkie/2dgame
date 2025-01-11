@@ -22,6 +22,8 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler KeyH;
     public int hasMeat = 0;
+    public int poopCounter = 0;
+    public boolean poop = false;
     
     //public final int screenX, screenY; //openworld-like setting
 
@@ -147,7 +149,21 @@ public class Player extends Entity{
                     gp.playSE(0);
                     gp.obj[i] = null;
                     System.out.println("Meat count: "+hasMeat);
+                    gp.ui.showMessage("Agumon ate the Digimeat!");
+                    if (hasMeat == 7) {
+                        gp.ui.gameFinished = true;
+                        //gp.stopMusic();
+                    }
+                    if (poopCounter > 0) {
+                        Speed++;
+                        poopCounter--;
+                    }
                     break;
+                case "Poop":
+                    Speed--;
+                    poopCounter++;
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("Agumon stepped on poop!");
             }
         }
     }

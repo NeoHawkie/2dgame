@@ -145,6 +145,7 @@ public class GamePanel extends JPanel implements Runnable{
                 );
                 drawCount = 0;
                 timer = 0;
+                System.out.println(player.poopCounter);
             }
         }
     }

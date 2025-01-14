@@ -83,13 +83,4 @@ public class AssetSetter {
         gp.obj[9].Y = (2 + rng.nextInt(7)) * gp.tileSize;
     }
     
-    public int autoDropCounter = 0;
-    
-    public void update(){
-        autoDropCounter++;
-        if (autoDropCounter == GamePanel.dropInterval) {
-            gp.obj[0].Y++;
-            autoDropCounter = 0;
-        }
-    }
 }

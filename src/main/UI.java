@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import object.OBJ_Meat;
+import main.Connector;
 
 /**
  *
@@ -23,9 +24,11 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
+    public Connector connector;
     
     public UI(GamePanel gp){
         this.gp = gp;
+        this.connector = connector;
         arial_30 = new Font("Arial", Font.PLAIN, 30);
         arial_90B = new Font("Arial", Font.BOLD, 90);
         OBJ_Meat meat = new OBJ_Meat();
@@ -38,6 +41,13 @@ public class UI {
     }
     public void draw(Graphics2D g2){
         if (gameFinished) {
+            
+            double[] highscore = new double[5];
+            
+            highscore = connector.showScore();
+            for (int i = 0; i < 6; i++) {
+                System.out.println(highscore[i]);
+            }
             
             //message #1
             g2.setFont(arial_30);
@@ -64,6 +74,14 @@ public class UI {
             x = gp.ScreenWidth/2 - textLen + gp.tileSize*2;
             y = gp.ScreenHeight/2 - (gp.tileSize*4)-10;
             g2.drawString(text, x, y);
+            //connector.updateScore(playTime);
+            
+//            text = String.format("1: %.2fs\t 2: %.2fs\t 3: %.2fs\t 4: %.2fs\t 5: %.2fs",
+//                    highscore[0], highscore[1], highscore[2], highscore[3], highscore[4]);
+//            textLen = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+//            x = gp.ScreenWidth/2 - textLen + gp.tileSize*2;
+//            y = gp.ScreenHeight/2 - (gp.tileSize*4)-10;
+//            g2.drawString(text, x, y);
             
             gp.gameThread = null;
             

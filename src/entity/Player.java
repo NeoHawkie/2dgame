@@ -150,7 +150,7 @@ public class Player extends Entity{
                     gp.obj[i] = null;
                     System.out.println("Meat count: "+hasMeat);
                     gp.ui.showMessage("Agumon ate the Digimeat!");
-                    if (hasMeat == 7) {
+                    if (hasMeat == 1) {
                         gp.ui.gameFinished = true;
                         //gp.stopMusic();
                     }

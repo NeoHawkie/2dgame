@@ -9,6 +9,10 @@ import java.sql.*;
  * @author Aluno
  */
 public class Connector {
+    private static PreparedStatement preparedStatement = null;
+    private static ResultSet resultSet = null;
+    private static String saveScore = "insert into scores value (null, ? )";
+    private static String showScore = "select score from scores order by score asc limit 5";
     
     //CONEXAO
     
@@ -20,7 +24,7 @@ public class Connector {
     private static final String url = "jdbc:mysql://localhost:3306/2dgame";
     private static final String user = "root";
     private static final String password = "root";
-    private static Connection conexao;     
+    private static Connection conexao = null;     
     private static Connector conn; //instancia
 
     private Connector() {}
@@ -59,12 +63,11 @@ public class Connector {
     
     
     //BD
-    private static Connection connection = null;
 
     public static void main(String[] args) {
         try {
-            connection = Connector.getConn().abrirConexao();
-            System.out.println("Base criada com sucesso");
+            conexao = Connector.getConn().abrirConexao();
+            //System.out.println("Base criada com sucesso");
             Connector.getConn().fecharConexao();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -73,7 +76,40 @@ public class Connector {
     }
     
     
-    public void saveScore(double playTime){
-        
+    public void updateScore(double playTime){
+         Connection conexao = conn.getConn().abrirConexao();
+        try {
+            preparedStatement = conexao.prepareStatement(saveScore);
+            preparedStatement.setDouble(1, playTime);
+            preparedStatement.execute();
+            conexao.commit();
+            System.out.println("Score table updated.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            fecharConexao();
+        }
+    }
+    
+    public double[] showScore(){
+        Connection conexao = conn.getConn().abrirConexao();
+        double[] highscore = new double[5];
+        try {
+            preparedStatement = conexao.prepareStatement(showScore);
+            resultSet = preparedStatement.executeQuery();
+            int i = 0;
+            while (resultSet.next()) {
+                highscore[i] = resultSet.getDouble("score");
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            fecharConexao();
+        }
+        if (highscore != null) {
+            System.out.println("Não há pontuação salva.");
+        }
+        return highscore;
     }
 }

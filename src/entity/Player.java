@@ -4,13 +4,12 @@
  */
 package entity;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import main.Connector;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -150,14 +149,15 @@ public class Player extends Entity{
                     gp.obj[i] = null;
                     System.out.println("Meat count: "+hasMeat);
                     gp.ui.showMessage("Agumon ate the Digimeat!");
-                    if (hasMeat == 1) {
+                    if (hasMeat == 7) {
                         gp.ui.gameFinished = true;
                         //gp.stopMusic();
+                        Connector.getConn().updateScore(gp.ui.playTime);
                     }
-                    if (poopCounter > 0) {
-                        Speed++;
-                        poopCounter--;
-                    }
+//                    if (poopCounter > 0) {
+//                        Speed++;
+//                        poopCounter--;
+//                    }
                     break;
                 case "Poop":
                     Speed--;

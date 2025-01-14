@@ -19,7 +19,7 @@ public class UI {
     GamePanel gp;
     Font arial_30, arial_90B;
     BufferedImage meatImage;
-    double playTime = 0;
+    public double playTime = 0;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -28,7 +28,7 @@ public class UI {
     
     public UI(GamePanel gp){
         this.gp = gp;
-        this.connector = connector;
+        this.connector = Connector.getConn();
         arial_30 = new Font("Arial", Font.PLAIN, 30);
         arial_90B = new Font("Arial", Font.BOLD, 90);
         OBJ_Meat meat = new OBJ_Meat();
@@ -43,18 +43,14 @@ public class UI {
         if (gameFinished) {
             
             double[] highscore = new double[5];
-            
             highscore = connector.showScore();
-            for (int i = 0; i < 6; i++) {
-                System.out.println(highscore[i]);
-            }
             
             //message #1
             g2.setFont(arial_30);
             g2.setColor(Color.white);
-            String text = "You ate 'em all!";
+            String text = "Agumon ate 'em all!";
             int textLen = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            int x = gp.ScreenWidth/2 - textLen + gp.tileSize*2;
+            int x = gp.ScreenWidth/2 - textLen + gp.tileSize*3-20;
             int y = gp.ScreenHeight/2 - (gp.tileSize*5);
             g2.drawString(text, x, y);
             
@@ -74,14 +70,19 @@ public class UI {
             x = gp.ScreenWidth/2 - textLen + gp.tileSize*2;
             y = gp.ScreenHeight/2 - (gp.tileSize*4)-10;
             g2.drawString(text, x, y);
-            //connector.updateScore(playTime);
             
-//            text = String.format("1: %.2fs\t 2: %.2fs\t 3: %.2fs\t 4: %.2fs\t 5: %.2fs",
-//                    highscore[0], highscore[1], highscore[2], highscore[3], highscore[4]);
-//            textLen = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-//            x = gp.ScreenWidth/2 - textLen + gp.tileSize*2;
-//            y = gp.ScreenHeight/2 - (gp.tileSize*4)-10;
-//            g2.drawString(text, x, y);
+            text = ("HIGHSCORE");
+            textLen = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            x = gp.ScreenWidth/2 - textLen + gp.tileSize+35;
+            y = gp.ScreenHeight/2 + (gp.tileSize*5)-10;
+            g2.drawString(text, x, y);
+            
+            text = String.format("1# %.2fs   2# %.2fs   3# %.2fs   4# %.2fs   5# %.2fs",
+                    highscore[0], highscore[1], highscore[2], highscore[3], highscore[4]);
+            textLen = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            x = gp.ScreenWidth/2 - textLen + gp.tileSize*7;
+            y = gp.ScreenHeight/2 + (gp.tileSize*6)-10;
+            g2.drawString(text, x, y);
             
             gp.gameThread = null;
             

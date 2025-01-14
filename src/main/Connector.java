@@ -24,12 +24,12 @@ public class Connector {
     private static final String url = "jdbc:mysql://localhost:3306/2dgame";
     private static final String user = "root";
     private static final String password = "root";
-    private static Connection conexao = null;     
+    private static Connection conexao;     
     private static Connector conn; //instancia
 
     private Connector() {}
 
-    public static Connector getConn() {
+    public static synchronized Connector getConn() {
         if(conn == null) {
             conn = new Connector();
         }
@@ -46,7 +46,7 @@ public class Connector {
         } catch (SQLException | ClassNotFoundException e) {
             System.err.println("Erro ao conectar com o banco de dados: " + e.getMessage()); 
         }
-        return null;
+        return conexao;
     }
 
     public void fecharConexao() {
@@ -63,53 +63,51 @@ public class Connector {
     
     
     //BD
-
     public static void main(String[] args) {
         try {
-            conexao = Connector.getConn().abrirConexao();
-            //System.out.println("Base criada com sucesso");
+            Connector.getConn().abrirConexao();
+            System.out.println("Conectado a base com sucesso");
             Connector.getConn().fecharConexao();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            System.err.println("Erro: " + e.getMessage());
             System.exit(0);
         }
     }
     
     
     public void updateScore(double playTime){
-         Connection conexao = conn.getConn().abrirConexao();
         try {
-            preparedStatement = conexao.prepareStatement(saveScore);
+            Connection connection = abrirConexao();
+            preparedStatement = connection.prepareStatement(saveScore);
             preparedStatement.setDouble(1, playTime);
+            
             preparedStatement.execute();
             conexao.commit();
+            
             System.out.println("Score table updated.");
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            fecharConexao();
+            System.err.println("Erro ao atualizar a pontuação: "+ e.getMessage());
         }
     }
     
     public double[] showScore(){
-        Connection conexao = conn.getConn().abrirConexao();
         double[] highscore = new double[5];
         try {
-            preparedStatement = conexao.prepareStatement(showScore);
+            Connection connection = abrirConexao();
+            preparedStatement = connection.prepareStatement(showScore);
             resultSet = preparedStatement.executeQuery();
+            
             int i = 0;
             while (resultSet.next()) {
-                highscore[i] = resultSet.getDouble("score");
-                i++;
+                highscore[i++] = resultSet.getDouble("score");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            fecharConexao();
-        }
-        if (highscore != null) {
-            System.out.println("Não há pontuação salva.");
+            System.err.println("Erro ao carregar as pontuações: " + e.getMessage());
         }
         return highscore;
+        
     }
 }
